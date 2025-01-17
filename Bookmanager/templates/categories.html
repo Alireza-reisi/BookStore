@@ -1,0 +1,219 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+	{{ category.name }}
+{% endblock %}
+{% block description %}
+	{{ category.description|truncatewords:150 }}
+{% endblock %}
+{% block content %}
+
+    <main>
+
+        <div class="breadcrumb-items">
+            <div class="row">
+                <ul class="breadcrumb">
+                    <li>
+                        <a href="{% url 'Bookmanager:home' %}" class="breadcrumb-link">صفحه اصلی</a>
+                    </li>
+                    <li class="chevron"><span class="fa fa-chevron-left"></span></li>
+                    <li>
+                        <span class="breadcrumb-active">دسته بندی کتب</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="slider-area">
+                        <div class="slider-height2 slider-bg4 d-flex align-items-center">
+                            <div class="hero-caption hero-caption2">
+                                <h2>دسته بندی {{ category.name }}</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="listing-area pt-50 pb-50">
+            <div class="container">
+{#                <div class="row">#}
+{##}
+{#                    <div class="col-xl-4 col-lg-4 col-md-6">#}
+{##}
+{#                        <div class="category-listing mb-50">#}
+{##}
+{#                            <div class="single-listing">#}
+{##}
+{#                                <div class="select-Categories pb-30">#}
+{#                                    <div class="small-tittle mb-20">#}
+{#                                        <h4>دسته بندی</h4>#}
+{#                                    </div>#}
+{#                                    <label class="container">تاریخی#}
+{#                                        <input type="checkbox">#}
+{#                                        <span class="checkmark"></span>#}
+{#                                    </label>#}
+{#                                    <label class="container">روانشناسی#}
+{#                                        <input type="checkbox" checked="checked active">#}
+{#                                        <span class="checkmark"></span>#}
+{#                                    </label>#}
+{#                                    <label class="container">رمان عاشقانه#}
+{#                                        <input type="checkbox">#}
+{#                                        <span class="checkmark"></span>#}
+{#                                    </label>#}
+{#                                    <label class="container">علوم سیاسی#}
+{#                                        <input type="checkbox">#}
+{#                                        <span class="checkmark"></span>#}
+{#                                    </label>#}
+{#                                    <label class="container">بیوگرافی#}
+{#                                        <input type="checkbox">#}
+{#                                        <span class="checkmark"></span>#}
+{#                                    </label>#}
+{#                                </div>#}
+
+
+{#                                <aside class="left_widgets p_filter_widgets price_rangs_aside sidebar_box_shadow mb-40">#}
+{#                                    <div class="small-tittle">#}
+{#                                        <h4>فیلتر قیمت</h4>#}
+{#                                    </div>#}
+{#                                    <div class="widgets_inner">#}
+{#                                        <div class="range_item">#}
+{#                                            <input type="text" class="js-range-slider" value="" />#}
+{#                                            <div class="d-flex align-items-center">#}
+{#                                                <div class="price_value d-flex justify-content-center">#}
+{#                                                    <input type="text" class="js-input-from" id="amount" readonly />#}
+{#                                                    <span>تا</span>#}
+{#                                                    <input type="text" class="js-input-to" id="amount" readonly />#}
+{#                                                </div>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                    </div>#}
+{#                                </aside>#}
+
+
+{#                                <div class="select-job-items2 mb-30">#}
+{#                                    <div class="col-xl-12">#}
+{#                                        <select name="select2">#}
+{#                                            <option value="">فیلتر براساس امتیاز</option>#}
+{#                                            <option value="">5 ستاره</option>#}
+{#                                            <option value="">4 ستاره</option>#}
+{#                                            <option value="">3 ستاره</option>#}
+{#                                            <option value="">2 ستاره</option>#}
+{#                                            <option value="">1 ستاره</option>#}
+{#                                        </select>#}
+{#                                    </div>#}
+{#                                </div>#}
+
+
+{#                                <div class="select-Categories pt-100 pb-60">#}
+{#                                    <div class="small-tittle mb-20">#}
+{#                                        <h4>فیلتر انتشارات</h4>#}
+{#                                    </div>#}
+{#                                    <label class="container">انتشارات اول#}
+{#                                        <input type="checkbox">#}
+{#                                        <span class="checkmark"></span>#}
+{#                                    </label>#}
+{#                                    <label class="container">انتشارات دوم#}
+{#                                        <input type="checkbox" checked="checked active">#}
+{#                                        <span class="checkmark"></span>#}
+{#                                    </label>#}
+{#                                    <label class="container">انتشارات سوم#}
+{#                                        <input type="checkbox">#}
+{#                                        <span class="checkmark"></span>#}
+{#                                    </label>#}
+{#                                    <label class="container">انتشارات چهارم#}
+{#                                        <input type="checkbox">#}
+{#                                        <span class="checkmark"></span>#}
+{#                                    </label>#}
+{#                                    <label class="container">انتشارات پنجم#}
+{#                                        <input type="checkbox">#}
+{#                                        <span class="checkmark"></span>#}
+{#                                    </label>#}
+{#                                </div>#}
+
+
+{#                                <div class="select-Categories">#}
+{#                                    <div class="small-tittle mb-20">#}
+{#                                        <h4>فیلتر نویسنده</h4>#}
+{#                                    </div>#}
+{#                                    <label class="container">سون وون پیونگ#}
+{#                                        <input type="checkbox">#}
+{#                                        <span class="checkmark"></span>#}
+{#                                    </label>#}
+{#                                    <label class="container">باربارا دی آنجلیس#}
+{#                                        <input type="checkbox" checked="checked active">#}
+{#                                        <span class="checkmark"></span>#}
+{#                                    </label>#}
+{#                                    <label class="container">پائولو کولینو#}
+{#                                        <input type="checkbox">#}
+{#                                        <span class="checkmark"></span>#}
+{#                                    </label>#}
+{#                                    <label class="container">مت هیگ#}
+{#                                        <input type="checkbox">#}
+{#                                        <span class="checkmark"></span>#}
+{#                                    </label>#}
+{#                                    <label class="container">بزرگمهر برخیده#}
+{#                                        <input type="checkbox">#}
+{#                                        <span class="checkmark"></span>#}
+{#                                    </label>#}
+{##}
+{#                            </div>#}
+{#                        </div>#}
+{##}
+{#                    </div>#}
+
+{#                    <div class="col-xl-8 col-lg-8 col-md-6">#}
+{#                        <div class="row justify-content-end">#}
+{#                            <div class="col-xl-4">#}
+{#                                <div class="product_page_tittle">#}
+{#                                    <div class="short_by">#}
+{#                                        <select name="#" id="product_short_list">#}
+{#                                            <option>مرتب سازی براساس محبوبیت</option>#}
+{#                                            <option>مرتب سازی براساس نام</option>#}
+{#                                            <option>مرتب سازی براساس جدیدترین</option>#}
+{#                                            <option>مرتب سازی براساس قدیمی ترین</option>#}
+{#                                            <option>مرتب سازی براساس قیمت</option>#}
+{#                                        </select>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+                        <div class="best-selling p-0">
+                            <div class="row">
+                                {% if books.count == 0 %}
+                                    <p>کتابی برای نمایش یافت نشد.</p>
+                                {% endif %}
+                                {% for book in books %}
+                                    <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-6 col-sm-6">
+                                        <div class="properties pb-30">
+                                            <div class="properties-card">
+                                                <div class="properties-img">
+                                                    <a href="{{ book.get_absolute_url }}"><img src="{{ book.image.url }}" alt="{{ book.title }}"></a>
+                                                </div>
+                                                <div class="properties-caption properties-caption2">
+                                                    <h3><a href="{{ book.get_absolute_url }}">{{ book.title }}</a></h3>
+                                                    <p><a href="#">{{ book.author }}</a></p>
+                                                    <div class="properties-footer d-flex justify-content-between align-items-center">
+                                                        <div class="review">
+                                                            <p>(<span>{{ book.comment_number }}</span> نظر)</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+{% endblock %}

@@ -1,0 +1,78 @@
+ {% load static %}
+<div class="footer-wrappper section-bg mt-5">
+        <div class="footer-area footer-padding">
+            <div class="container">
+                <div class="row justify-content-between">
+                    <div class="col-xl-3 col-lg-5 col-md-4 col-sm-6">
+                        <div class="single-footer-caption mb-50">
+                            <div class="single-footer-caption mb-30">
+
+                                <div class="footer-logo mb-25">
+                                    <a href="{% url 'Bookmanager:home' %}"><img src="{% static 'img/logo/booklogo.png' %}" alt="" style="width: 100%"></a>
+                                </div>
+                                <div class="footer-tittle">
+                                    <div class="footer-pera">
+                                        <p>بوکینو یک کتابخانه آنلاین است که با ارائه مجموعه‌ای متنوع از کتاب‌های الکترونیکی و صوتی، دسترسی آسان به دنیای مطالعه را برای علاقه‌مندان فراهم می‌کند.
+                                            </p>
+                                    </div>
+                                </div>
+
+                                <div class="footer-social">
+                                    <a href="#"><i class="fab fa-facebook"></i></a>
+                                    <a href="#"><i class="fab fa-instagram"></i></a>
+                                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                    <a href="#"><i class="fab fa-youtube"></i></a>
+                                    <a href="#"><i class="fab fa-telegram"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-3 col-md-4 col-sm-5">
+                        <div class="single-footer-caption mb-50">
+                            <div class="footer-tittle">
+                                <h4>دسته بندی موضوعی</h4>
+                                <ul>
+                                    {% for category in categories %}
+                                    	<li><a href="{{ category.get_absolute_url }}">{{ category.name }}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
+                        <div class="single-footer-caption mb-50">
+                            <div class="footer-tittle">
+                                <h4>راهنمای سایت</h4>
+                                <ul class="mb-20">
+                                    <li><a href="{% url 'Bookmanager:home' %}">صفحه اصلی</a></li>
+{#                                    <li><a href="contact.html">سوالات متداول</a></li>#}
+                                    <li><a href="about.html">درباره ما</a></li>
+                                    <li><a href="{% url 'users:contact-us' %}">ارتباط با مدیر</a></li>
+{#                                    <li><a href="contact.html">درخواست همکاری</a></li>#}
+{#                                    <li><a href="blog-details.html">معرفی کتاب</a></li>#}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+{#        <div class="footer-bottom-area">#}
+{#            <div class="container">#}
+{#                <div class="footer-border">#}
+{#                    <div class="row d-flex align-items-center">#}
+{#                        <div class="col-xl-12 ">#}
+{#                            <div class="footer-copy-right text-center">#}
+{#                                کپی رایت &copy; تمام حقوق محفوظ می باشد | طراحی شده با <i#}
+{#                                    class="fa fa-heart color-danger" aria-hidden="true"></i> توسط <a#}
+{#                                    href="https://www.rtl-theme.com/author/samyar1/products/"#}
+{#                                    style="color: rgb(0, 0, 0)" target="_blank" rel="nofollow noopener">آی پلاس</a>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+    </div>

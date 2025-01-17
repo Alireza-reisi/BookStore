@@ -1,0 +1,129 @@
+{% extends 'user.html' %}
+{% load static %}
+
+{% block title %}
+    ثبت نام
+{% endblock %}
+
+{% block content %}
+    <main class="register-bg">
+
+        <div class="breadcrumb-items">
+            <div class="row">
+                <ul class="breadcrumb">
+                    <li>
+                        <a href="{% url 'Bookmanager:home' %}" class="breadcrumb-link">صفحه اصلی</a>
+                    </li>
+                    <li class="chevron"><span class="fa fa-chevron-left"></span></li>
+                    <li>
+                        <span class="breadcrumb-active">ثبت نام</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="register-form-area">
+            <div class="register-form">
+
+                <div class="register-heading">
+                    <span>ثبت نام</span>
+                    <p>برای دسترسی به سایت ثبت نام کنید</p>
+                </div>
+
+                <!-- نمایش پیام‌های خطا -->
+                {% if messages %}
+                    <div class="alert alert-danger">
+                        {% for message in messages %}
+                            <p>{{ message }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                <form id="registerForm" action="" method="post">
+                    {% csrf_token %}
+                    <div class="input-box">
+                        <div class="single-input-fields">
+                            <label>ایمیل</label>
+                            <input type="email" name="email" placeholder="ایمیل" required>
+                        </div>
+                        <div class="single-input-fields">
+                            <label>نام کاربری</label>
+                            <input type="text" name="username" placeholder="نام کاربری" required>
+                        </div>
+                        <div class="single-input-fields">
+                            <label>رمز عبور</label>
+                            <input type="password" name="password" id="password" placeholder="رمز عبور" required>
+                        </div>
+                        <div class="single-input-fields">
+                            <label>تأییدیه رمز عبور</label>
+                            <input type="password" name="password2" id="password2" placeholder="رمز عبور خود را مجدد وارد کنید" required>
+                        </div>
+                    </div>
+
+                    <div class="register-footer">
+                        <p>حساب کاربری دارید؟ <a href="{% url 'users:login' %}">وارد شوید</a></p>
+                        <button class="submit-btn3" type="submit">ثبت نام</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </main>
+
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        $(document).ready(function() {
+            $("#registerForm").validate({
+                rules: {
+                    email: {
+                        required: true,
+                        email: true
+                    },
+                    username: {
+                        required: true,
+                        minlength: 3
+                    },
+                    password: {
+                        required: true,
+                        minlength: 4
+                    },
+                    password2: {
+                        required: true,
+                        equalTo: "#password"
+                    }
+                },
+                messages: {
+                    email: {
+                        required: "لطفا ایمیل خود را وارد کنید",
+                        email: "لطفا یک ایمیل معتبر وارد کنید"
+                    },
+                    username: {
+                        required: "لطفا نام کاربری خود را وارد کنید",
+                        minlength: "نام کاربری باید حداقل ۳ کاراکتر باشد"
+                    },
+                    password: {
+                        required: "لطفا رمز عبور خود را وارد کنید",
+                        minlength: "رمز عبور باید حداقل 4 کاراکتر باشد"
+                    },
+                    password2: {
+                        required: "لطفا تأییدیه رمز عبور خود را وارد کنید",
+                        equalTo: "رمز عبور و تأییدیه رمز عبور یکسان نیستند"
+                    }
+                },
+                errorElement: 'div',
+                errorPlacement: function(error, element) {
+                    error.addClass('invalid-feedback');
+                    element.closest('.single-input-fields').append(error);
+                },
+                highlight: function(element, errorClass, validClass) {
+                    $(element).addClass('is-invalid').removeClass('is-valid');
+                },
+                unhighlight: function(element, errorClass, validClass) {
+                    $(element).removeClass('is-invalid').addClass('is-valid');
+                }
+            });
+        });
+    </script>
+{% endblock %}

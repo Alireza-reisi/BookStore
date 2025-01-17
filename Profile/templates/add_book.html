@@ -1,0 +1,205 @@
+{% extends "base.html" %}
+{% block title %}
+	add book
+{% endblock %}
+{% block description %}
+    اضافه کردن کتاب
+{% endblock %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-3">
+            <div class="sidebar">
+                <a href="{% url 'Profile:profile' %}" class="{% if request.resolver_match.url_name == 'profile' %}active{% endif %}">
+                    پروفایل
+                </a>
+                <a href="{% url 'Profile:add-book' %}" class="{% if request.resolver_match.url_name == 'add_book' %}active{% endif %}">
+                    اضافه کردن کتاب
+                </a>
+                <a href="{% url 'Profile:my-books' %}" class="{% if request.resolver_match.url_name == 'my_books' %}active{% endif %}">
+                    کتاب‌های من
+                </a>
+
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="col-md-9">
+            <div class="row justify-content-center mt-5">
+                <div class="col-md-10 mb-55"> <!-- تغییر از col-md-8 به col-md-10 -->
+                    <div class="card shadow-lg rounded-4">
+                        <div class="card-header text-white text-center rounded-top-4" style="background-color: rgb(0, 164, 166);">
+                            <h3>اضافه کردن کتاب جدید</h3>
+                        </div>
+                        {% if messages %}
+                            <div class="alert alert-danger">
+                                {% for message in messages %}
+                                    <p>{{ message }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        <div class="card-body bg-light">
+                            <form method="post" enctype="multipart/form-data" id="addBookForm">
+                                {% csrf_token %}
+
+                                <div class="mb-3">
+                                    <label for="id_title" class="form-label" style="color: rgb(0, 164, 166);">عنوان کتاب</label>
+                                    <input type="text" name="title" id="id_title" class="form-control form-control-lg rounded-3" placeholder="کتاب" />
+                                    <div class="invalid-feedback">لطفاً عنوان کتاب را وارد کنید.</div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="id_english_title" class="form-label" style="color: rgb(0, 164, 166);">عنوان انگلیسی</label>
+                                    <input type="text" name="english_title" id="id_english_title" class="form-control form-control-lg rounded-3" placeholder="book"  />
+                                    <div class="invalid-feedback">لطفاً عنوان انگلیسی را وارد کنید. تنها حروف انگلیسی مجاز هستند.</div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="id_author" class="form-label" style="color: rgb(0, 164, 166);">نام نویسنده</label>
+                                    <input type="text" name="author" id="id_author" class="form-control form-control-lg rounded-3" placeholder="ویکتور هوگو"  />
+                                    <div class="invalid-feedback">لطفاً نام نویسنده را وارد کنید.</div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="id_categories" class="form-label" style="color: rgb(0, 164, 166);">دسته‌بندی‌ها</label>
+                                    <select name="categories" id="id_categories" class="form-control form-control-lg rounded-3" multiple>
+                                        {% for category in categories %}
+                                            <option value="{{ category.id }}"
+                                                    {% if category.id in form.categories.value %}selected{% endif %}>
+                                                {{ category.name }}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                    <div class="invalid-feedback">لطفاً حداقل یک دسته‌بندی انتخاب کنید.</div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="id_image" class="form-label" style="color: rgb(0, 164, 166);">تصویر کتاب</label>
+                                    <input type="file" name="image" id="id_image" class="form-control form-control-lg rounded-3" />
+                                    <div class="invalid-feedback">فقط فایل‌های jpg و png با اندازه کمتر از 10 مگابایت مجاز هستند.</div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="id_file" class="form-label" style="color: rgb(0, 164, 166);">فایل کتاب</label>
+                                    <input type="file" name="file" id="id_file" class="form-control form-control-lg rounded-3" />
+                                    <div class="invalid-feedback">فقط فایل‌های pdf با اندازه کمتر از 500 مگابایت مجاز هستند.</div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="id_translator" class="form-label" style="color: rgb(0, 164, 166);">نام مترجم</label>
+                                    <input type="text" name="translator" id="id_translator" class="form-control form-control-lg rounded-3" placeholder="احمد آرام"  />
+                                    <div class="invalid-feedback">لطفاً نام مترجم کتاب را وارد کنید.</div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="id_publisher" class="form-label" style="color: rgb(0, 164, 166);">نام انتشارات</label>
+                                    <input type="text" name="publisher" id="id_publisher" class="form-control form-control-lg rounded-3" placeholder="گاج"  />
+                                    <div class="invalid-feedback">لطفاً انتشارات کتاب را وارد کنید.</div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="id_description" class="form-label" style="color: rgb(0, 164, 166);">توضیحات</label>
+                                    <textarea name="description" id="id_description" class="form-control form-control-lg rounded-3" placeholder="توضیحات">{{ form.description.value }}</textarea>
+                                    <div class="invalid-feedback">لطفاً توضیحات کتاب را وارد کنید.</div>
+                                </div>
+
+                                <button type="submit" class="btn w-100 text-white rounded-pill" style="background-color: rgb(0, 164, 166);">
+                                    اضافه کردن
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // اعتبارسنجی فرم با JavaScript
+    document.getElementById('addBookForm').addEventListener('submit', function(event) {
+        let isValid = true;
+
+        // بررسی عنوان کتاب
+        const title = document.getElementById('id_title');
+        if (title.value.trim() === '') {
+            title.classList.add('is-invalid');
+            isValid = false;
+        } else {
+            title.classList.remove('is-invalid');
+        }
+
+        // بررسی عنوان انگلیسی
+        const englishTitle = document.getElementById('id_english_title');
+        const englishTitlePattern = /^[A-Za-z\s]+$/;  // فقط حروف انگلیسی
+        if (englishTitle.value.trim() === '' || !englishTitlePattern.test(englishTitle.value)) {
+            englishTitle.classList.add('is-invalid');
+            isValid = false;
+        } else {
+            englishTitle.classList.remove('is-invalid');
+        }
+
+        // بررسی نام نویسنده
+        const author = document.getElementById('id_author');
+        if (author.value.trim() === '') {
+            author.classList.add('is-invalid');
+            isValid = false;
+        } else {
+            author.classList.remove('is-invalid');
+        }
+
+        // بررسی انتشارات
+        const publisher = document.getElementById('id_publisher');
+        if (publisher.value.trim() === '') {
+            publisher.classList.add('is-invalid');
+            isValid = false;
+        } else {
+            publisher.classList.remove('is-invalid');
+        }
+
+        // بررسی دسته‌بندی
+        const categories = document.getElementById('id_categories');
+        if (categories.value === '') {
+            categories.classList.add('is-invalid');
+            isValid = false;
+        } else {
+            categories.classList.remove('is-invalid');
+        }
+
+        // بررسی تصویر کتاب
+        const image = document.getElementById('id_image');
+        const imageFile = image.files[0];
+        if (imageFile && (imageFile.size > 10 * 1024 * 1024 || !['image/jpeg', 'image/png', 'image/webp'].includes(imageFile.type))) {
+            image.classList.add('is-invalid');
+            isValid = false;
+        } else {
+            image.classList.remove('is-invalid');
+        }
+
+        // بررسی فایل کتاب
+        const file = document.getElementById('id_file');
+        const bookFile = file.files[0];
+        if (bookFile && (bookFile.size > 500 * 1024 * 1024 || bookFile.type !== 'application/pdf')) {
+            file.classList.add('is-invalid');
+            isValid = false;
+        } else {
+            file.classList.remove('is-invalid');
+        }
+
+        // بررسی توضیحات
+        const description = document.getElementById('id_description');
+        if (description.value.trim() === '') {
+            description.classList.add('is-invalid');
+            isValid = false;
+        } else {
+            description.classList.remove('is-invalid');
+        }
+
+        // اگر فرم معتبر نیست، از ارسال آن جلوگیری می‌کنیم
+        if (!isValid) {
+            event.preventDefault();
+        }
+    });
+</script>
+{% endblock %}

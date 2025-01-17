@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+{% block title %}
+	profile
+{% endblock %}
+{% block description %}
+    پروفایل
+{% endblock %}
+{% block content %}
+<div class="container-fluid min-vh-100 d-flex justify-content-center align-items-center">
+    <div class="row w-100">
+        <!-- Sidebar -->
+        <div class="col-md-3">
+            <div class="sidebar">
+                <a href="{% url 'Profile:profile' %}" class="{% if request.resolver_match.url_name == 'profile' %}active{% endif %}">
+                    پروفایل
+                </a>
+                <a href="{% url 'Profile:add-book' %}" class="{% if request.resolver_match.url_name == 'add_book' %}active{% endif %}">
+                    اضافه کردن کتاب
+                </a>
+                <a href="{% url 'Profile:my-books' %}" class="{% if request.resolver_match.url_name == 'my_books' %}active{% endif %}">
+                    کتاب‌های من
+                </a>
+
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="col-md-9">
+            <div class="row justify-content-center mt-5">
+                <div class="col-md-10 mb-55">
+                    <div class="card shadow-lg rounded-4">
+                        <div class="card-header text-white text-center rounded-top-4" style="background-color: rgb(0, 164, 166);">
+                            <h3>پروفایل شما</h3>
+                        </div>
+                        <div class="card-body bg-light">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <!-- نمایش خطای خاص نام کاربری تکراری -->
+                                    {% if error_username %}
+                                        <div class="alert alert-danger" role="alert">
+                                            <p>{{ error_username }}</p>
+                                        </div>
+                                    {% endif %}
+
+                                    <form method="post" enctype="multipart/form-data" id="profileForm">
+                                        {% csrf_token %}
+                                        <div class="mb-3">
+                                            <label for="id_username" class="form-label" style="color: rgb(0, 164, 166);">نام کاربری</label>
+                                            <input type="text" name="username" id="id_username" class="form-control form-control-lg rounded-3" value="{{ user.username }}" readonly />
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="id_email" class="form-label" style="color: rgb(0, 164, 166);">ایمیل</label>
+                                            <input type="email" name="email" id="id_email" class="form-control form-control-lg rounded-3" value="{{ user.email }}" readonly />
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="id_first_name" class="form-label" style="color: rgb(0, 164, 166);">نام</label>
+                                            <input type="text" name="first_name" id="id_first_name" class="form-control form-control-lg rounded-3" value="{{ user.first_name }}" readonly />
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="id_last_name" class="form-label" style="color: rgb(0, 164, 166);">نام خانوادگی</label>
+                                            <input type="text" name="last_name" id="id_last_name" class="form-control form-control-lg rounded-3" value="{{ user.last_name }}" readonly />
+                                        </div>
+
+                                        <!-- فیلد پسورد جدید -->
+                                        <div class="mb-3">
+                                            <label for="id_password1" class="form-label" style="color: rgb(0, 164, 166);">پسورد جدید</label>
+                                            <input type="password" name="password1" id="id_password1" class="form-control form-control-lg rounded-3" readonly />
+                                        </div>
+
+                                        <!-- فیلد تایید پسورد -->
+                                        <div class="mb-3">
+                                            <label for="id_password2" class="form-label" style="color: rgb(0, 164, 166);">تایید پسورد جدید</label>
+                                            <input type="password" name="password2" id="id_password2" class="form-control form-control-lg rounded-3" readonly />
+                                        </div>
+
+                                        <!-- نمایش پیام خطای مطابقت پسوردها -->
+                                        <div id="passwordError" class="alert alert-danger" style="display: none;">
+                                            پسوردها باید با هم مطابقت داشته باشند.
+                                        </div>
+
+                                        <!-- Edit and Save buttons -->
+                                        <div class="d-flex justify-content-between">
+                                            <button type="button" id="editBtn" class="btn btn-warning rounded-pill">ویرایش</button>
+                                            <button type="submit" id="saveBtn" class="btn btn-success rounded-pill" disabled>ذخیره تغییرات</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // فعال و غیر فعال کردن فیلدها در حالت ویرایش
+    document.getElementById('editBtn').addEventListener('click', function() {
+        const inputs = document.querySelectorAll('#id_username, #id_email, #id_first_name, #id_last_name, #id_password1, #id_password2');
+        const saveBtn = document.getElementById('saveBtn');
+        const passwordError = document.getElementById('passwordError');
+
+        // فعال کردن فیلدهای ویرایشی
+        inputs.forEach(input => {
+            input.readOnly = false;
+        });
+
+        // نمایش دکمه ذخیره و غیر فعال کردن دکمه ویرایش
+        saveBtn.disabled = false;
+        this.disabled = true;
+    });
+
+    // قبل از ارسال فرم، صحت سنجی فیلدها
+    document.getElementById('profileForm').addEventListener('submit', function(event) {
+        const password1 = document.getElementById('id_password1').value;
+        const password2 = document.getElementById('id_password2').value;
+        const passwordError = document.getElementById('passwordError');
+
+        // بررسی مطابقت پسوردها
+        if (password1 !== password2) {
+            event.preventDefault();  // جلوگیری از ارسال فرم
+            passwordError.style.display = 'block';  // نمایش پیام خطا
+        } else {
+            passwordError.style.display = 'none';  // مخفی کردن پیام خطا
+        }
+    });
+
+    // قبل از باز شدن فیلدها تمام فیلدها غیرقابل ویرایش باشند
+    document.addEventListener("DOMContentLoaded", function() {
+        const inputs = document.querySelectorAll('#id_username, #id_email, #id_first_name, #id_last_name, #id_password1, #id_password2');
+
+        // به صورت پیش‌فرض فیلدها غیرقابل ویرایش باشند
+        inputs.forEach(input => {
+            input.readOnly = true;
+        });
+    });
+</script>
+{% endblock %}

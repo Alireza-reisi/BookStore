@@ -1,0 +1,613 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+	BOOKINO
+{% endblock %}
+
+{% block description %}
+    کتابخانه آنلاین ما مقصدی برای عاشقان کتاب است. از کتاب‌های کلاسیک تا جدیدترین آثار، مجموعه‌ای متنوع برای جستجو، مطالعه و اشتراک‌گذاری در اختیار شماست.
+{% endblock %}
+
+{% block content %}
+	<main>
+
+        <div class="slider-area home">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="slider-active dot-style">
+
+                            <div class="single-slider slider-height slider-bg1 d-flex align-items-center">
+                                <div class="container">
+                                    <div class="row slider-title">
+                                        <div class="col-xxl-4 col-xl-4 col-lg-5 col-md-6 col-sm-7">
+                                            <div class="hero-caption">
+                                                <h1 data-animation="fadeInUp" data-delay=".4s">ده کتاب برتر جامعه شناسی
+                                                </h1>
+                                                <a href="#" class="btn hero-btn" data-animation="bounceIn"
+                                                    data-delay=".8s">مشاهده مقاله</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="single-slider slider-height slider-bg2 d-flex align-items-center">
+                                <div class="container">
+                                    <div class="row slider-title">
+                                        <div class="col-xxl-4 col-xl-4 col-lg-5 col-md-6 col-sm-7">
+                                            <div class="hero-caption">
+                                                <h1 data-animation="fadeInUp" data-delay=".4s">همه چیز همه چیز</h1>
+                                                <a href="#" class="btn hero-btn" data-animation="bounceIn"
+                                                    data-delay=".8s">مشاهده کتاب</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="single-slider slider-height slider-bg3 d-flex align-items-center">
+                                <div class="container">
+                                    <div class="row slider-title">
+                                        <div class="col-xxl-4 col-xl-4 col-lg-5 col-md-6 col-sm-7">
+                                            <div class="hero-caption">
+                                                <h1 data-animation="fadeInUp" data-delay=".4s">کار را انجام دهید</h1>
+                                                <a href="#" class="btn hero-btn" data-animation="bounceIn"
+                                                    data-delay=".8s">خرید کتاب</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="categories-slider">
+            <div class="container">
+                <div class="row justify-content-right">
+                    <div class="col-xl-7 col-lg-8">
+                        <div class="section-tittle">
+                            <h2>دسته بندی های کتاب</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="categories-active">
+                            {% for cat in categories %}
+                                <div class="category-item">
+                                    <a href="{{cat.get_absolute_url}}" class="category-img" style="width: 100%; text-align: center">
+                                        <img src="{{ cat.image.url }}" alt="{{ cat.name }}" loading="lazy" style="margin: auto;">
+                                    </a>
+                                    <a class="category-caption" href="{{cat.get_absolute_url}}" style="display: inline-block;">{{ cat.name }}</a>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="best-selling section-bg">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-xl-7 col-lg-8">
+                        <div class="section-tittle text-center mb-55">
+                            <h2>پربازدید ترین کتاب ها</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="selling-active">
+
+{#                               most view books#}
+                            {% for book in most_view_books %}
+                                <div class="properties pb-20 d-flex flex-column" style="height: 100%;">
+                                    <div class="properties-card d-flex flex-column" style="flex-grow: 1; height: 100%;">
+                                        <!-- قسمت تصویر باکس -->
+                                        <div class="properties-img" style="height: 200px; overflow: hidden;">
+                                            <a href="{{ book.get_absolute_url }}">
+                                                <img src="{{ book.image.url }}" alt="{{ book.book_slug }}" style="width: 100%; height: 100%; object-fit: cover;">
+                                            </a>
+                                        </div>
+                                        <!-- قسمت توضیحات کتاب -->
+                                        <div class="properties-caption d-flex flex-column" style="flex-grow: 1;">
+                                            <!-- عنوان کتاب -->
+                                            <h3 style="overflow: hidden; text-overflow: ellipsis; white-space: normal;">
+                                                <a href="{{ book.get_absolute_url }}" style="display: block; word-wrap: break-word;">
+                                                    {{ book.title }}
+                                                </a>
+                                            </h3>
+                                            <a href="" target="_parent">{{ book.author }}</a>
+                                            <div class="properties-footer d-flex justify-content-between align-items-center" style="margin-top: auto;">
+                                                <div class="review">
+                                                    <p>(<span>{{ book.comment_number }}</span> نظر)</p>
+                                                    <p>(<span>{{ book.view }}</span> بازدید)</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+{#        <div class="services-area2 top-padding">#}
+{#            <div class="container">#}
+{#                <div class="row">#}
+{#                    <div class="col-xl-9 col-lg-9 col-md-12">#}
+{#                        <div class="row">#}
+{##}
+{#                            <div class="col-xl-12">#}
+{#                                <div class="section-tittle d-flex justify-content-between align-items-center mb-40">#}
+{#                                    <div class="title-area2">#}
+{#                                        <img src="img/icon/book-open-reader-solid.svg" class="book-icon" />#}
+{#                                        <h2 class="mb-0">کتابــ ویژه این هفته</h2>#}
+{#                                    </div>#}
+{#                                    <a href="#" class="browse-btn">مشاهده همه</a>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        <div class="row">#}
+{#                            <div class="col-xl-12">#}
+{#                                <div class="services-active">#}
+{##}
+{#                                    <div class="single-services d-flex align-items-center">#}
+{#                                        <div class="features-img">#}
+{#                                            <img src="img/book/best-books1.jpg" alt="">#}
+{#                                        </div>#}
+{#                                        <div class="features-caption">#}
+{#                                            <h3>رهایی</h3>#}
+{#                                            <p>نویسنده:<a href="#" target="_parent" class="author">ویرجینیا وولف</a></p>#}
+{#                                            <div class="price">#}
+{#                                                <p>110.000<span>تومان</span></p>#}
+{#                                            </div>#}
+{#                                            <div class="review">#}
+{#                                                <div class="rating">#}
+{#                                                    <i class="fas fa-star"></i>#}
+{#                                                    <i class="fas fa-star"></i>#}
+{#                                                    <i class="fas fa-star"></i>#}
+{#                                                    <i class="fas fa-star"></i>#}
+{#                                                    <i class="fas fa-star-half-alt"></i>#}
+{#                                                </div>#}
+{#                                                <p>(<span>120</span> نظر)</p>#}
+{#                                            </div>#}
+{#                                            <a href="book-details.html" class="border-btn">اطلاعات بیشتر</a>#}
+{#                                        </div>#}
+{#                                        <div class="timer">#}
+{#                                            <div class="countdown_dashboard">#}
+{#                                                <div class="dash day_dash"> <span class="dash_title">روز</span>#}
+{#                                                    <div class="digi_num">#}
+{#                                                        <div class="digit">0</div>#}
+{#                                                        <div class="digit">0</div>#}
+{#                                                    </div>#}
+{#                                                </div>#}
+{#                                                <div class="dash hour_dash"> <span class="dash_title">ساعت</span>#}
+{#                                                    <div class="digi_num">#}
+{#                                                        <div class="digit">0</div>#}
+{#                                                        <div class="digit">0</div>#}
+{#                                                    </div>#}
+{#                                                </div>#}
+{#                                                <div class="dash min_dash"> <span class="dash_title">دقیقه</span>#}
+{#                                                    <div class="digi_num">#}
+{#                                                        <div class="digit">0</div>#}
+{#                                                        <div class="digit">0</div>#}
+{#                                                    </div>#}
+{#                                                </div>#}
+{#                                                <div class="dash sec_dash"> <span class="dash_title">ثانیه</span>#}
+{#                                                    <div class="digi_num">#}
+{#                                                        <div class="digit">0</div>#}
+{#                                                        <div class="digit">0</div>#}
+{#                                                    </div>#}
+{#                                                </div>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                    </div>#}
+{##}
+{#                                    <div class="single-services d-flex align-items-center">#}
+{#                                        <div class="features-img">#}
+{#                                            <img src="img/book/best-books2.jpg" alt="">#}
+{#                                        </div>#}
+{#                                        <div class="features-caption">#}
+{#                                            <h3>اثر مرکب</h3>#}
+{#                                            <p>نویسنده:<a href="#" target="_parent" class="author">دارن هاردی</a></p>#}
+{#                                            <div class="price">#}
+{#                                                <p>180.000<span>تومان</span></p>#}
+{#                                            </div>#}
+{#                                            <div class="review">#}
+{#                                                <div class="rating">#}
+{#                                                    <i class="fas fa-star"></i>#}
+{#                                                    <i class="fas fa-star"></i>#}
+{#                                                    <i class="fas fa-star"></i>#}
+{#                                                    <i class="fas fa-star"></i>#}
+{#                                                    <i class="fas fa-star-half-alt"></i>#}
+{#                                                </div>#}
+{#                                                <p>(<span>225</span> نظر)</p>#}
+{#                                            </div>#}
+{#                                            <a href="book-details.html" class="border-btn">اطلاعات بیشتر</a>#}
+{#                                        </div>#}
+{#                                        <div class="timer">#}
+{#                                            <div class="countdown_dashboard">#}
+{#                                                <div class="dash day_dash"> <span class="dash_title">روز</span>#}
+{#                                                    <div class="digi_num">#}
+{#                                                        <div class="digit">0</div>#}
+{#                                                        <div class="digit">0</div>#}
+{#                                                    </div>#}
+{#                                                </div>#}
+{#                                                <div class="dash hour_dash"> <span class="dash_title">ساعت</span>#}
+{#                                                    <div class="digi_num">#}
+{#                                                        <div class="digit">0</div>#}
+{#                                                        <div class="digit">0</div>#}
+{#                                                    </div>#}
+{#                                                </div>#}
+{#                                                <div class="dash min_dash"> <span class="dash_title">دقیقه</span>#}
+{#                                                    <div class="digi_num">#}
+{#                                                        <div class="digit">0</div>#}
+{#                                                        <div class="digit">0</div>#}
+{#                                                    </div>#}
+{#                                                </div>#}
+{#                                                <div class="dash sec_dash"> <span class="dash_title">ثانیه</span>#}
+{#                                                    <div class="digi_num">#}
+{#                                                        <div class="digit">0</div>#}
+{#                                                        <div class="digit">0</div>#}
+{#                                                    </div>#}
+{#                                                </div>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-9">#}
+{##}
+{#                        <div class="best-author">#}
+{#                            <div class="best-author-title">#}
+{#                                <h3>نویسندگان برتر</h3>#}
+{#                            </div>#}
+{#                            <hr>#}
+{#                            <ul class="best-author-box">#}
+{#                                <li>#}
+{#                                    <img src="img/author/woman-author-one.jpg" alt="">#}
+{#                                    <p>باربارا دی آنجلیس</p>#}
+{#                                    <a href="author-details.html"><i class="fa-solid fa-circle-chevron-left"></i></a>#}
+{#                                </li>#}
+{#                                <li>#}
+{#                                    <img src="img/author/woman-author-two.jpg" alt="">#}
+{#                                    <p>ماریا شاون</p>#}
+{#                                    <a href="author-details.html"><i class="fa-solid fa-circle-chevron-left"></i></a>#}
+{#                                </li>#}
+{#                                <li>#}
+{#                                    <img src="img/author/man-author-one.jpg" alt="">#}
+{#                                    <p>رحیل ابراهیم</p>#}
+{#                                    <a href="author-details.html"><i class="fa-solid fa-circle-chevron-left"></i></a>#}
+{#                                </li>#}
+{#                                <li>#}
+{#                                    <img src="img/author/man-author-two.jpg" alt="">#}
+{#                                    <p>آدام اسمیت</p>#}
+{#                                    <a href="author-details.html"><i class="fa-solid fa-circle-chevron-left"></i></a>#}
+{#                                </li>#}
+{#                            </ul>#}
+{#                            <hr>#}
+{#                            <div class="best-author-footer">#}
+{#                                <a href="author.html">همه نویسندگان</a>#}
+{#                                <a href="author.html"><i class="fa-solid fa-circle-chevron-left"></i></a>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+
+
+        <section class="our-client section-padding best-selling">
+            <div class="container">
+                <div class="row justify-content-between">
+                    <div class="col-xl-5 col-lg-5 col-md-12">
+
+                        <div class="section-tittle  mb-40">
+                            <h2>جدیدترین کتبــ</h2>
+                        </div>
+                    </div>
+                    <div class="col-xl-7 col-lg-7 col-md-12">
+                        <div class="nav-button mb-40">
+
+                            <nav>
+                                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                    <a class="nav-link active" id="nav-one-tab" data-bs-toggle="tab" href="#nav-one"
+                                        role="tab" aria-controls="nav-one" aria-selected="true">همه</a>
+                                    <a class="nav-link" id="nav-two-tab" data-bs-toggle="tab" href="#nav-two" role="tab"
+                                        aria-controls="nav-two" aria-selected="false">ورزشی</a>
+                                    <a class="nav-link" id="nav-three-tab" data-bs-toggle="tab" href="#nav-three" role="tab"
+                                        aria-controls="nav-three" aria-selected="false">کسب و کار</a>
+                                    <a class="nav-link" id="nav-four-tab" data-bs-toggle="tab" href="#nav-four" role="tab"
+                                        aria-controls="nav-four" aria-selected="false">رمان</a>
+                                    <a class="nav-link" id="nav-five-tab" data-bs-toggle="tab" href="#nav-five" role="tab"
+                                        aria-controls="nav-five" aria-selected="false">تاریخ</a>
+                                </div>
+                            </nav>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+
+                <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="nav-one" role="tabpanel" aria-labelledby="nav-one-tab">
+
+                        <div class="row">
+                            {% for last_book in last_books %}
+                            	 <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
+                                    <div class="properties pb-30 d-flex flex-column" style="height: 100%;">
+                                        <div class="properties-card d-flex flex-column" style="flex-grow: 1;">
+                                            <!-- قسمت تصویر باکس -->
+                                            <div class="properties-img" style="height: 200px; overflow: hidden;">
+                                                <a href="{{ last_book.get_absolute_url }}">
+                                                    <img src="{{ last_book.image.url }}" alt="تصویر کتاب {{ last_book.title }}" style="width: 100%; height: 100%; object-fit: cover;">
+                                                </a>
+                                            </div>
+                                            <!-- قسمت توضیحات کتاب -->
+                                            <div class="properties-caption properties-caption2 d-flex flex-column" style="flex-grow: 1;">
+                                                <h3><a href="{{ last_book.get_absolute_url }}">{{last_book.title}}</a></h3>
+                                                <p>نویسنده: <a href="" target="_parent" class="author">{{ last_book.author }}</a></p>
+                                                <div class="properties-footer d-flex justify-content-between align-items-center" style="margin-top: auto;">
+                                                    <div class="review">
+                                                        <p>(<span>{{ last_book.comment_number }}</span> نظر)</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="nav-two" role="tabpanel" aria-labelledby="nav-two-tab">
+
+                        <div class="row">
+                            {% for last_book in last_Sport_books %}
+                            	<div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
+                                    <div class="properties pb-30 d-flex flex-column" style="height: 100%;">
+                                        <div class="properties-card d-flex flex-column" style="flex-grow: 1;">
+                                            <!-- قسمت تصویر باکس -->
+                                            <div class="properties-img" style="height: 200px; overflow: hidden;">
+                                                <a href="{{ last_book.get_absolute_url }}">
+                                                    <img src="{{ last_book.image.url }}" alt="تصویر کتاب {{ last_book.title }}" style="width: 100%; height: 100%; object-fit: cover;">
+                                                </a>
+                                            </div>
+                                            <!-- قسمت توضیحات کتاب -->
+                                            <div class="properties-caption properties-caption2 d-flex flex-column" style="flex-grow: 1;">
+                                                <h3><a href="{{ last_book.get_absolute_url }}">{{last_book.title}}</a></h3>
+                                                <p>نویسنده: <a href="" target="_parent" class="author">{{ last_book.author }}</a></p>
+                                                <div class="properties-footer d-flex justify-content-between align-items-center" style="margin-top: auto;">
+                                                    <div class="review">
+                                                        <p>(<span>{{ last_book.comment_number }}</span> نظر)</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="nav-three" role="tabpanel" aria-labelledby="nav-three-tab">
+
+                        <div class="row">
+                            {% for last_book in last_Business_books %}
+                            	<div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
+                                    <div class="properties pb-30 d-flex flex-column" style="height: 100%;">
+                                        <div class="properties-card d-flex flex-column" style="flex-grow: 1;">
+                                            <!-- قسمت تصویر باکس -->
+                                            <div class="properties-img" style="height: 200px; overflow: hidden;">
+                                                <a href="{{ last_book.get_absolute_url }}">
+                                                    <img src="{{ last_book.image.url }}" alt="تصویر کتاب {{ last_book.title }}" style="width: 100%; height: 100%; object-fit: cover;">
+                                                </a>
+                                            </div>
+                                            <!-- قسمت توضیحات کتاب -->
+                                            <div class="properties-caption properties-caption2 d-flex flex-column" style="flex-grow: 1;">
+                                                <h3><a href="{{ last_book.get_absolute_url }}">{{last_book.title}}</a></h3>
+                                                <p>نویسنده: <a href="" target="_parent" class="author">{{ last_book.author }}</a></p>
+                                                <div class="properties-footer d-flex justify-content-between align-items-center" style="margin-top: auto;">
+                                                    <div class="review">
+                                                        <p>(<span>{{ last_book.comment_number }}</span> نظر)</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="nav-four" role="tabpanel" aria-labelledby="nav-four-tab">
+
+                        <div class="row">
+                            {% for last_book in last_Stories_books %}
+                            	<div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
+                                    <div class="properties pb-30 d-flex flex-column" style="height: 100%;">
+                                        <div class="properties-card d-flex flex-column" style="flex-grow: 1;">
+                                            <!-- قسمت تصویر باکس -->
+                                            <div class="properties-img" style="height: 200px; overflow: hidden;">
+                                                <a href="{{ last_book.get_absolute_url }}">
+                                                    <img src="{{ last_book.image.url }}" alt="تصویر کتاب {{ last_book.title }}" style="width: 100%; height: 100%; object-fit: cover;">
+                                                </a>
+                                            </div>
+                                            <!-- قسمت توضیحات کتاب -->
+                                            <div class="properties-caption properties-caption2 d-flex flex-column" style="flex-grow: 1;">
+                                                <h3><a href="{{ last_book.get_absolute_url }}">{{last_book.title}}</a></h3>
+                                                <p>نویسنده: <a href="" target="_parent" class="author">{{ last_book.author }}</a></p>
+                                                <div class="properties-footer d-flex justify-content-between align-items-center" style="margin-top: auto;">
+                                                    <div class="review">
+                                                        <p>(<span>{{ last_book.comment_number }}</span> نظر)</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="nav-five" role="tabpanel" aria-labelledby="nav-five-tab">
+
+                        <div class="row">
+                            {% for last_book in last_Historical_books %}
+                            	<div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
+                                    <div class="properties pb-30 d-flex flex-column" style="height: 100%;">
+                                        <div class="properties-card d-flex flex-column" style="flex-grow: 1;">
+                                            <!-- قسمت تصویر باکس -->
+                                            <div class="properties-img" style="height: 200px; overflow: hidden;">
+                                                <a href="{{ last_book.get_absolute_url }}">
+                                                    <img src="{{ last_book.image.url }}" alt="تصویر کتاب {{ last_book.title }}" style="width: 100%; height: 100%; object-fit: cover;">
+                                                </a>
+                                            </div>
+                                            <!-- قسمت توضیحات کتاب -->
+                                            <div class="properties-caption properties-caption2 d-flex flex-column" style="flex-grow: 1;">
+                                                <h3><a href="{{ last_book.get_absolute_url }}">{{last_book.title}}</a></h3>
+                                                <p>نویسنده: <a href="" target="_parent" class="author">{{ last_book.author }}</a></p>
+                                                <div class="properties-footer d-flex justify-content-between align-items-center" style="margin-top: auto;">
+                                                    <div class="review">
+                                                        <p>(<span>{{ last_book.comment_number }}</span> نظر)</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="more-btn text-center mt-15">
+                            <a href="{% url 'Bookmanager:all_books' %}" class="border-btn border-btn2 more-btn2">مشاهده بیشتر</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="publishers">
+            <div class="container">
+                <div class="row">
+                    <div class="section-tittle">
+                        <h2>ناشران برتر</h2>
+                    </div>
+                </div>
+
+                <div class="row lists">
+                    {% for publisher in publishers %}
+                        <div class="list" id="item-{{ forloop.counter }}">
+{#                            <div class="list-image">#}
+{#                                <a href="publisher-details.html" target="_self">#}
+{#                                    <img src="{% static 'img/publisher/default.jpg' %}" alt="Publisher Image" />#}
+{#                                </a>#}
+{#                            </div>#}
+                            <div class="list-caption">
+                                <span>{{ publisher.publisher }}</span>
+                                <p>تعداد کتب در این سایت: <span>{{ publisher.book_count }} عدد</span></p>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+        </section>
+
+
+{#        <section class="testimonials">#}
+{#            <div class="container">#}
+{#                <div class="row testimonial-head">#}
+{#                    <div class="section-tittle">#}
+{#                        <h2>نظر مشتریان کابانا</h2>#}
+{#                    </div>#}
+{#                    <hr class="solid">#}
+{#                </div>#}
+{#                <div class="row">#}
+{#                    <div class="col-sm-12">#}
+{#                        <div id="customers-testimonials" class="owl-carousel">#}
+{#                            <!--TESTIMONIAL 1 -->#}
+{#                            <div class="item">#}
+{#                                <div class="shadow-effect">#}
+{#                                    <img class="img-circle" src="img/comments/testimonial4.jpg" alt="">#}
+{#                                    <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان#}
+{#                                        گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و#}
+{#                                        برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی#}
+{#                                        می باشد. </p>#}
+{#                                </div>#}
+{#                                <div class="testimonial-name">سامان</div>#}
+{#                            </div>#}
+{#                            <!--END OF TESTIMONIAL 1 -->#}
+{#                            <!--TESTIMONIAL 2 -->#}
+{#                            <div class="item">#}
+{#                                <div class="shadow-effect">#}
+{#                                    <img class="img-circle" src="img/comments/testimonial3.jpg" alt="">#}
+{#                                    <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان#}
+{#                                        گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و#}
+{#                                        برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی#}
+{#                                        می باشد. </p>#}
+{#                                </div>#}
+{#                                <div class="testimonial-name">مریم</div>#}
+{#                            </div>#}
+{#                            <!--END OF TESTIMONIAL 2 -->#}
+{#                            <!--TESTIMONIAL 3 -->#}
+{#                            <div class="item">#}
+{#                                <div class="shadow-effect">#}
+{#                                    <img class="img-circle" src="img/comments/testimonial1.jpg" alt="">#}
+{#                                    <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان#}
+{#                                        گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و#}
+{#                                        برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی#}
+{#                                        می باشد. </p>#}
+{#                                </div>#}
+{#                                <div class="testimonial-name">شیما</div>#}
+{#                            </div>#}
+{#                            <!--END OF TESTIMONIAL 3 -->#}
+{#                            <!--TESTIMONIAL 4 -->#}
+{#                            <div class="item">#}
+{#                                <div class="shadow-effect">#}
+{#                                    <img class="img-circle" src="img/comments/testimonial2.jpg" alt="">#}
+{#                                    <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان#}
+{#                                        گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و#}
+{#                                        برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی#}
+{#                                        می باشد. </p>#}
+{#                                </div>#}
+{#                                <div class="testimonial-name">سعید</div>#}
+{#                            </div>#}
+{#                            <!--END OF TESTIMONIAL 4 -->#}
+{#                            <!--TESTIMONIAL 5 -->#}
+{#                            <div class="item">#}
+{#                                <div class="shadow-effect">#}
+{#                                    <img class="img-circle" src="img/comments/testimonial5.jpg" alt="">#}
+{#                                    <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان#}
+{#                                        گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و#}
+{#                                        برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی#}
+{#                                        می باشد. </p>#}
+{#                                </div>#}
+{#                                <div class="testimonial-name">محمد</div>#}
+{#                            </div>#}
+{#                            <!--END OF TESTIMONIAL 5 -->#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </section>#}
+    </main>
+{% endblock %}

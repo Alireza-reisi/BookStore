@@ -1,0 +1,27 @@
+{% load static %}
+<!doctype html>
+<html class="no-js" lang="en">
+
+    <head>
+        {% include 'includes/head-resrences.html' %}
+    </head>
+    
+    
+    <header>
+        {% include 'includes/header.html' %}
+    </header>
+
+
+    <body>
+        {% block content %} {% endblock %}
+    
+    
+        <footer>
+           {% include 'includes/footer.html' %}
+        </footer>
+    
+        {% include 'includes/footer-refrences.html' %}
+    
+    </body>
+
+</html>

@@ -1,0 +1,109 @@
+{% extends 'user.html' %}
+{% load static %}
+
+{% block title %}
+    ورود
+{% endblock %}
+
+{% block content %}
+
+    <main class="login-bg">
+        <div class="breadcrumb-items">
+            <div class="row">
+                <ul class="breadcrumb">
+                    <li>
+                        <a href="{% url 'Bookmanager:home' %}" class="breadcrumb-link">صفحه اصلی</a>
+                    </li>
+                    <li class="chevron"><span class="fa fa-chevron-left"></span></li>
+                    <li>
+                        <span class="breadcrumb-active">ورود</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="login-form-area">
+            <div class="login-form">
+
+                <div class="login-heading">
+                    <span>ورود</span>
+                    <p>برای دسترسی به سایت وارد شوید</p>
+                </div>
+
+                <!-- نمایش پیام‌های خطا -->
+                {% if messages %}
+                    <div class="alert alert-danger">
+                        {% for message in messages %}
+                            <p>{{ message }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                <form id="loginForm" action="" method="post">
+                    {% csrf_token %}
+                    <div class="input-box">
+                        <div class="single-input-fields">
+                            <label>نام کاربری</label>
+                            <input type="text" name="username" placeholder="نام کاربری / ایمیل" required>
+                        </div>
+                        <div class="single-input-fields">
+                            <label>رمز عبور</label>
+                            <input type="password" name="password" placeholder="رمز عبور" required>
+                        </div>
+                        <div class="single-input-fields login-check">
+                            <input type="checkbox" id="fruit1" name="keep-log">
+                            <label for="fruit1">مرا به یاد داشته باش!</label>
+                            <a href="#" class="f-right">رمز خود را فراموش کرده اید؟</a>
+                        </div>
+                    </div>
+                    <div class="login-footer">
+                        <p>حساب کاربری ندارید؟ <a href="{% url 'users:signup' %}">ثبت نام</a> کنید.</p>
+                        <button class="submit-btn3" type="submit">ورود</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </main>
+
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        $(document).ready(function() {
+            $("#loginForm").validate({
+                rules: {
+                    username: {
+                        required: true,
+                        minlength: 3
+                    },
+                    password: {
+                        required: true,
+                        minlength: 4
+                    }
+                },
+                messages: {
+                    username: {
+                        required: "لطفا نام کاربری یا ایمیل خود را وارد کنید",
+                        minlength: "نام کاربری باید حداقل ۳ کاراکتر باشد"
+                    },
+                    password: {
+                        required: "لطفا رمز عبور خود را وارد کنید",
+                        minlength: "رمز عبور باید حداقل 4 کاراکتر باشد"
+                    }
+                },
+                errorElement: 'div',
+                errorPlacement: function(error, element) {
+                    error.addClass('invalid-feedback');
+                    element.closest('.single-input-fields').append(error);
+                },
+                highlight: function(element, errorClass, validClass) {
+                    $(element).addClass('is-invalid').removeClass('is-valid');
+                },
+                unhighlight: function(element, errorClass, validClass) {
+                    $(element).removeClass('is-invalid').addClass('is-valid');
+                }
+            });
+        });
+    </script>
+{% endblock %}

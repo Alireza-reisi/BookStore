@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% block title %}
+	about us
+{% endblock %}
+{% block description %}
+    کتابخانه آنلاین ما فضایی برای اشتراک‌گذاری دانش، دسترسی به کتاب‌های متنوع و ایجاد ارتباط میان عاشقان کتاب است. داستان ما و اهداف ما را کشف کنید!
+{% endblock %}
+{% block content %}
+<main>
+
+    <div class="breadcrumb-items">
+        <div class="row">
+            <ul class="breadcrumb">
+                <li>
+                    <a href="{% url 'Bookmanager:home' %}" class="breadcrumb-link">صفحه اصلی</a>
+                </li>
+                <li class="chevron"><span class="fa fa-chevron-left"></span></li>
+                <li>
+                    <span class="breadcrumb-active">درباره ما</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="slider-area">
+                    <div class="slider-height2 slider-bg5 d-flex align-items-center justify-content-center">
+                        <div class="hero-caption hero-caption2">
+                            <h2>درباره ما</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="about-details">
+        <div class="container">
+            <!-- بخش داستان ما -->
+            <div class="row">
+                <div class="offset-xl-1 col-xl-10 col-lg-8">
+                    <div class="section-tittle mb-15">
+                        <h2>داستان ما از کجا شروع شد؟</h2>
+                    </div>
+                </div>
+                <div class="offset-xl-1 col-xl-9">
+                    <div class="about-pera">
+                        <p>هر ایده بزرگی روزی از یک جرقه کوچک شروع شده است. داستان ما هم از همان روزی آغاز شد که کتابی در قفسه‌ای گم‌شده، الهام‌بخش ساخت دنیایی شد که در آن هر کتاب در جای درست خود باشد. ما باور داریم که هر کتاب حامل یک داستان، یک زندگی، و یک تجربه بی‌نظیر است.</p>
+                        <p>ایده ساخت این کتابخانه دیجیتال از علاقه‌مان به اشتراک‌گذاری دانش و فرهنگ با دیگران شکل گرفت. از همان ابتدا هدفمان روشن بود: ایجاد فضایی که نه‌تنها عاشقان کتاب، بلکه هر کسی که به دنبال یادگیری و رشد است، بتواند راهش را پیدا کند.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- بخش هدف اصلی ما -->
+            <div class="row">
+                <div class="offset-xl-1 col-xl-10 col-lg-8">
+                    <div class="section-tittle mb-15">
+                        <h2>هدف اصلی ما</h2>
+                    </div>
+                </div>
+                <div class="offset-xl-1 col-xl-9">
+                    <div class="about-pera">
+                        <p>ما اینجا هستیم تا کتاب‌ها را از مرزهای محدود قفسه‌ها فراتر ببریم و به دنیای دیجیتال بیاوریم. هدف ما ساخت جامعه‌ای است که در آن کتاب‌ها پلی میان فرهنگ‌ها، زبان‌ها و دل‌ها باشند.</p>
+                        <p>با این کتابخانه، می‌خواهیم ابزاری در دسترس همه ایجاد کنیم که از طریق آن بتوانند به بهترین و جدیدترین منابع دسترسی داشته باشند. از کتاب‌های کلاسیک گرفته تا مقالات مدرن، اینجا مکانی برای پیدا کردن چیزی است که دنبالش هستید.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- بخش چرا ما متفاوت هستیم -->
+            <div class="row">
+                <div class="offset-xl-1 col-xl-10 col-lg-8">
+                    <div class="section-tittle mb-15">
+                        <h2>چرا ما متفاوت هستیم؟</h2>
+                    </div>
+                </div>
+                <div class="offset-xl-1 col-xl-9">
+                    <div class="about-pera">
+                        <ul>
+                            <li><strong>جامعه دوستانه:</strong> ما فقط یک پلتفرم نیستیم؛ ما یک خانواده از دوستداران کتاب هستیم.</li>
+                            <li><strong>دسترسی بی‌مرز:</strong> مهم نیست کجای دنیا هستید، کتابخانه ما همیشه در دسترس شماست.</li>
+                            <li><strong>پشتیبانی از تنوع:</strong> از کتاب‌های فارسی تا منابع بین‌المللی، ما تنوع را گرامی می‌داریم.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</main>
+{% endblock %}

@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% block title %}
+	my books
+{% endblock %}
+{% block description %}
+		کتاب های من
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-3">
+            <div class="sidebar">
+                <a href="{% url 'Profile:profile' %}" class="{% if request.resolver_match.url_name == 'profile' %}active{% endif %}">پروفایل</a>
+                <a href="{% url 'Profile:add-book' %}" class="{% if request.resolver_match.url_name == 'add_book' %}active{% endif %}">اضافه کردن کتاب</a>
+                <a href="{% url 'Profile:my-books' %}" class="{% if request.resolver_match.url_name == 'my_books' %}active{% endif %}">کتاب‌های من</a>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="col-md-9">
+            <div class="row justify-content-center mt-5">
+                <div class="col-md-10">
+                    <h3 class="mb-5">کتاب‌های من</h3>
+
+                    <!-- نمایش پیام‌های موفقیت و خطا -->
+                    {% if messages %}
+                        <div class="alert alert-info" role="alert">
+                            {% for message in messages %}
+                                <p>{{ message }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                    <!-- لیست کتاب‌ها -->
+                    <div class="row">
+                        {% if mybooks %}
+                            {% for book in mybooks %}
+                                <!-- شروع یک ستون -->
+                                <div class="col-md-4 mb-4 d-flex">
+                                    <div class="card shadow-lg w-100" style="min-height: 350px;">
+                                        <img src="{{ book.image.url|default:'path/to/default-image.png' }}" class="card-img-top" alt="{{ book.title }}" style="height: 200px; object-fit: cover;">
+                                        <div class="card-body text-center d-flex flex-column">
+                                            <h5 class="card-title">
+                                                <a href="{{ book.get_absolute_url }}" style="color: black;" onmouseover="this.style.color='rgb(0, 164, 166)';" onmouseout="this.style.color='black';">
+                                                    {{ book.title }}
+                                                </a>
+                                            </h5>
+                                            <p class="card-text text-muted">نویسنده: {{ book.author }}</p>
+                                        </div>
+                                        <div class="card-footer text-center">
+                                            <!-- دکمه ویرایش -->
+                                            <a href="{% url 'Profile:edit-book' book.book_slug %}" class="btn btn-outline-primary w-100 mb-2">ویرایش کتاب</a>
+
+                                            <!-- دکمه حذف -->
+                                            <button class="btn btn-outline-danger w-100 delete-button" data-id="{{ book.id }}">حذف</button>
+
+                                            <!-- دکمه حذف قطعی (مخفی) -->
+                                            <form action="{% url 'Profile:delete-book' book.id %}" method="post" class="delete-form" style="display: none;">
+                                                {% csrf_token %}
+                                                <button type="submit" class="btn btn-outline-danger w-100">حذف قطعی</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- بستن ردیف و شروع ردیف جدید بعد از هر 3 کتاب -->
+                                {% if forloop.counter|divisibleby:3 and not forloop.last %}
+                                    </div><div class="row">
+                                {% endif %}
+                            {% endfor %}
+                        {% else %}
+                            <p class="text-center">هنوز هیچ کتابی اضافه نکرده‌اید.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.querySelectorAll('.delete-button').forEach(button => {
+        button.addEventListener('click', function () {
+            const bookId = this.dataset.id;  // گرفتن id کتاب از data-id
+            const deleteForm = this.closest('.card-footer').querySelector('.delete-form');  // پیدا کردن فرم حذف
+            deleteForm.style.display = 'block';  // نمایش فرم حذف
+            this.style.display = 'none';  // مخفی کردن دکمه "حذف"
+        });
+    });
+</script>
+
+<style>
+    .card {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        min-height: 350px; /* ارتفاع برابر برای تمام باکس‌ها */
+    }
+
+    .card-footer {
+        background-color: #f8f9fa;
+    }
+
+    .delete-button:hover {
+        background-color: red;
+        color: white;
+    }
+
+    .delete-form button {
+        background-color: darkred;
+        color: white;
+    }
+
+    .delete-form {
+        display: none;
+    }
+</style>
+
+{% endblock %}

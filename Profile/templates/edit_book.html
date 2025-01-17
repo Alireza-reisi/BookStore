@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+	edit book
+{% endblock %}
+{% block description %}
+   ویرایش کتاب
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h3 class="text-center">ویرایش کتاب: {{ this_book.title }}</h3>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+
+            <!-- نمایش خطاها (اگر وجود داشته باشد) -->
+            {% if messages %}
+                <div class="alert alert-danger">
+                    {% for message in messages %}
+                        <p>{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <form action="{% url 'Profile:edit-book' this_book.book_slug %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <!-- عنوان -->
+                <div class="mb-3">
+                    <label for="title" class="form-label">عنوان کتاب</label>
+                    <input type="text" class="form-control" id="title" name="title" value="{{ this_book.title }}" required disabled>
+                </div>
+
+                <!-- عنوان انگلیسی -->
+                <div class="mb-3">
+                    <label for="english_title" class="form-label">عنوان انگلیسی</label>
+                    <input type="text" class="form-control" id="english_title" name="english_title" value="{{ this_book.english_title }}" required disabled>
+                </div>
+
+                <!-- نویسنده -->
+                <div class="mb-3">
+                    <label for="author" class="form-label">نویسنده</label>
+                    <input type="text" class="form-control" id="author" name="author" value="{{ this_book.author }}" required disabled>
+                </div>
+
+                <!-- مترجم -->
+                <div class="mb-3">
+                    <label for="translator" class="form-label">مترجم</label>
+                    <input type="text" class="form-control" id="translator" name="translator" value="{{ this_book.translator }}" disabled>
+                </div>
+
+                <!-- انتشارات -->
+                <div class="mb-3">
+                    <label for="publisher" class="form-label">انتشارات</label>
+                    <input type="text" class="form-control" id="publisher" name="publisher" value="{{ this_book.publisher }}" disabled>
+                </div>
+
+                <!-- دسته‌بندی‌ها -->
+                <div class="mb-3">
+                    <label for="categories" class="form-label">دسته‌بندی‌ها</label>
+                    <select class="form-control" id="categories" name="categories" multiple disabled>
+                        {% for category in categories %}
+                            <option value="{{ category.id }}" {% if category in this_book.categories.all %}selected{% endif %}>{{ category.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <!-- تصویر -->
+                <div class="mb-3">
+                    <label for="image" class="form-label">تصویر کتاب</label>
+                    <input type="file" class="form-control" id="image" name="image" disabled>
+                    {% if this_book.image %}
+                        <img src="{{ this_book.image.url }}" alt="Book Image" class="img-fluid mt-3" style="max-height: 200px; object-fit: cover;">
+                    {% endif %}
+                </div>
+
+                <!-- فایل کتاب -->
+                <div class="mb-3">
+                    <label for="file" class="form-label">فایل کتاب</label>
+                    <input type="file" class="form-control" id="file" name="file" disabled>
+                    {% if this_book.file %}
+                        <a href="{{ this_book.file.url }}" class="d-block mt-2" target="_blank">فایل فعلی</a>
+                    {% endif %}
+                </div>
+
+                <!-- توضیحات -->
+                <div class="mb-3">
+                    <label for="description" class="form-label">توضیحات</label>
+                    <textarea class="form-control" id="description" name="description" rows="4" disabled>{{ this_book.description }}</textarea>
+                </div>
+
+                <!-- دکمه ویرایش / ذخیره -->
+                <button type="button" class="btn btn-primary w-100" id="edit-button" onclick="toggleEdit()">ویرایش</button>
+                <button type="submit" class="btn btn-success w-100 mt-3" id="save-button" style="display: none;">ذخیره تغییرات</button>
+            </form>
+            <!-- دکمه بازگشت -->
+            <a href="{% url 'Profile:my-books' %}" class="btn btn-secondary w-100 mt-3">بازگشت</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    function toggleEdit() {
+        const inputs = document.querySelectorAll('input:not([type=hidden]), textarea, select');
+        const editButton = document.getElementById('edit-button');
+        const saveButton = document.getElementById('save-button');
+
+        // تغییر وضعیت دکمه‌ها و فیلدها
+        inputs.forEach(input => {
+            input.disabled = !input.disabled;  // تغییر حالت غیرفعال به فعال و بالعکس
+        });
+
+        // تغییر متن دکمه
+        if (editButton.textContent === 'ویرایش') {
+            editButton.textContent = 'لغو ویرایش';
+        } else {
+            editButton.textContent = 'ویرایش';
+        }
+
+        // نمایش یا مخفی کردن دکمه ذخیره
+        saveButton.style.display = saveButton.style.display === 'none' ? 'block' : 'none';
+    }
+</script>
+
+
+{% endblock %}

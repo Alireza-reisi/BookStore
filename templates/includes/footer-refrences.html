@@ -1,0 +1,69 @@
+{% load static %}
+<div id="back-top">
+        <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
+    </div>
+    
+    <script src="{% static 'js/modernizr-3.5.0.min.js' %}"></script>
+    <script src="{% static 'js/jquery-1.12.4.min.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/slick.min.js' %}"></script>
+    <script src="{% static 'js/jquery.slicknav.min.js' %}"></script>
+    
+    <script src="{% static 'js/wow.min.js' %}"></script>
+    <script src="{% static 'js/jquery.magnific-popup.js' %}"></script>
+    <script src="{% static 'js/jquery.nice-select.min.js' %}"></script>
+    <script src="{% static 'js/jquery.counterup.min.js' %}"></script>
+    <script src="{% static 'js/waypoints.min.js' %}"></script>
+    <script src="{% static 'js/price_rangs.js' %}"></script>
+    
+    <script src="{% static 'js/contact.js' %}"></script>
+    <script src="{% static 'js/jquery.form.js' %}"></script>
+    <script src="{% static 'js/jquery.validate.min.js' %}"></script>
+    <script src="{% static 'js/mail-script.js' %}"></script>
+    <script src="{% static 'js/jquery.ajaxchimp.min.js' %}"></script>
+    <script src="{% static 'js/countdown.js' %}"></script>
+    <script src="{% static 'js/jquery.countdown.min.js' %}"></script>
+    
+    <script src="{% static 'js/plugins.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    
+    
+    <script>
+        $('.countdown_dashboard').countdown({
+            diff: null,
+            year: 0,
+            month: 0,
+            day: 50,
+            hour: 10,
+            min: 10,
+            sec: 10,
+            refresh: 1000,
+            easing: 'linear',
+            dash: [{
+                    key: 'year',
+                    duration: 950
+                },
+                {
+                    key: 'day',
+                    duration: 950
+                },
+                {
+                    key: 'hour',
+                    duration: 950
+                },
+                {
+                    key: 'min',
+                    duration: 950
+                },
+                {
+                    key: 'sec',
+                    duration: 750
+                }
+            ],
+    
+            onEnd: $.noop
+        });
+    </script>
