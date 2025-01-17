@@ -45,12 +45,24 @@
 {#                            width="1296" height="365" style="border:0;" allowfullscreen="" loading="lazy"#}
 {#                            referrerpolicy="no-referrer-when-downgrade"></iframe>#}
 {#                    </div>#}
+                    {% if success %}
+                    	 <div class="col-12">
+                            <div class="alert alert-success">{{ success }}</div>
+                        </div>
+                    {% endif %}
                     <div class="col-12">
                         <h2 class="contact-title">اطلاعات تماس</h2>
                     </div>
                     <div class="col-lg-8">
                         <form class="form-contact contact_form" action="" method="post" >
                             {% csrf_token %}
+                            <div class="row">
+                                <div class="col-12">
+                                        {% for error in form.non_field_errors %}
+                                        	 <div class="alert alert-danger mb-3"> {{ error }}</div>
+                                        {% endfor %}
+                                </div>
+                            </div>
                             <div class="row">
                                 <div class="col-12">
                                     <div class="form-group">
