@@ -505,6 +505,57 @@
             </div>
         </section>
 
+        <div class="best-selling section-bg">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-xl-7 col-lg-8">
+                        <div class="section-tittle text-center mb-55">
+                            <h2>بیشترین دانلود شده ها</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="selling-active">
+
+{#                               most download books#}
+                            {% for book in most_download_books %}
+                                <div class="properties pb-20 d-flex flex-column" style="height: 100%;">
+                                    <div class="properties-card d-flex flex-column" style="flex-grow: 1; height: 100%;">
+                                        <!-- قسمت تصویر باکس -->
+                                        <div class="properties-img" style="height: 200px; overflow: hidden;">
+                                            <a href="{{ book.get_absolute_url }}">
+                                                <img src="{{ book.image.url }}" alt="{{ book.book_slug }}" style="width: 100%; height: 100%; object-fit: cover;">
+                                            </a>
+                                        </div>
+                                        <!-- قسمت توضیحات کتاب -->
+                                        <div class="properties-caption d-flex flex-column" style="flex-grow: 1;">
+                                            <!-- عنوان کتاب -->
+                                            <h3 style="overflow: hidden; text-overflow: ellipsis; white-space: normal;">
+                                                <a href="{{ book.get_absolute_url }}" style="display: block; word-wrap: break-word;">
+                                                    {{ book.title }}
+                                                </a>
+                                            </h3>
+                                            <a href="" target="_parent">{{ book.author }}</a>
+                                            <div class="properties-footer d-flex justify-content-between align-items-center" style="margin-top: auto;">
+                                                <div class="review">
+                                                    <p>(<span>{{ book.comment_number }}</span> نظر)</p>
+                                                    <p>(<span>{{ book.view }}</span> بازدید)</p>
+                                                    <p>(<span>{{ book.download_number }}</span> دانلود)</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
         <section class="publishers">
             <div class="container">
                 <div class="row">

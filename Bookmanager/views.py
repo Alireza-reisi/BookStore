@@ -93,7 +93,8 @@ def download_book(request, slug):
 
         if not os.path.exists(file_path):
             raise Http404("کتاب مورد نظر یافت نشد.")
-
+        this_book.download_number +=1
+        this_book.save()
         return FileResponse(open(file_path, 'rb'), as_attachment=True, filename=os.path.basename(file_path))
     else:
         raise Http404("کتاب مورد نظر یافت نشد.")
