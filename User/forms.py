@@ -26,3 +26,8 @@ class ContactForm(forms.ModelForm):
                 "placeholder": " متن پیام"
             })
         }
+
+    def clean(self):
+        if len(self.cleaned_data['text']) < 10:
+            raise forms.ValidationError('متن کمتر از 10 حرف')
+        return self.cleaned_data

@@ -68,7 +68,8 @@ def Contact_us(request):
                 instance = form.save(commit=False)
                 instance.author = request.user
                 instance.save()
-                return redirect('users:contact-us')
+                form = ContactForm()
+                return render(request, 'contact_us.html', {'form': form, 'success': 'پیام شما با موفقیت ارسال شد.'})
         else:
             return redirect('users:login')
     return render(request, 'contact_us.html', {'form': form})
