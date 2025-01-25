@@ -1,6 +1,8 @@
+from django.http import Http404, FileResponse, HttpResponse
 from django.shortcuts import render, redirect, reverse
 from .models import Category, book, Comment
 from django.db.models import Count, Q
+import os
 
 
 def index(request):
@@ -82,3 +84,16 @@ def book_search(request):
 def all_books(request):
     books = book.objects.all()
     return render(request, 'all_books.html', {'books': books})
+
+
+def download_book(request, slug):
+    if book.objects.filter(book_slug=slug).exists():
+        this_book = book.objects.get(book_slug=slug)
+        file_path = this_book.file.path
+
+        if not os.path.exists(file_path):
+            raise Http404("کتاب مورد نظر یافت نشد.")
+
+        return FileResponse(open(file_path, 'rb'), as_attachment=True, filename=os.path.basename(file_path))
+    else:
+        raise Http404("کتاب مورد نظر یافت نشد.")

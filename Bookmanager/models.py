@@ -48,6 +48,9 @@ class book(models.Model):
     def get_absolute_url(self):
         return reverse('Bookmanager:book_page', args=[self.book_slug])
 
+    def get_download_url(self):
+        return reverse('Bookmanager:download_book', args=[self.book_slug])
+
     def save(self, *args, **kwargs):
         slug = slugify(self.english_title)
         while True:
